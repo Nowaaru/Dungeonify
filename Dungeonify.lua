@@ -113,7 +113,7 @@ function Dungeonify:Generate(data)
 	--determine impossible quotas
 	
 	
-	local RestrictionCountMap, QuotaCountMap = {}, {};
+	local RestrictionCount, QuotaCount = 0, 0;
 	for i, v in pairs(self.Restrictions) do
 		local _tn = (tonumber(v) or 0)
 		RestrictionCount = RestrictionCount + (tonumber(v) or 0)
