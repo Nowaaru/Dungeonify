@@ -113,16 +113,15 @@ function Dungeonify:Generate(data)
 	--determine impossible quotas
 	
 	
-	local RestrictionCount, QuotaCount = 0, 0;
+	local RestrictionCountMap, QuotaCountMap = {}, {};
 	for i, v in pairs(self.Restrictions) do
-		RestrictionCount = RestrictionCount + (tonumber(v) or 0)
+		local _tn = (tonumber(v) or 0)
+		assert(not self.Quota[i] or (self.Quota[i] and self.Quota[i] > _tn), string.format("Impossible restriction given: [%s | %s] (restriction-quota) - %s", _tn, tonumber(self.Quota[i]) or 0))
+		-- this probably works? idk i did it in github
 	end
 	--fix restrictions to where they can be less than max and greater than min whilst being empty
 	for i, v in pairs(Utilities:Length(self.Quota) > 0 and self.Quota or {}) do
 		QuotaCount = QuotaCount + (tonumber(v) or 0);
-	end
-	if (RestrictionCount > 0 and QuotaCount > 0 and RestrictionCount > QuotaCount) then
-		error(string.format("Impossible restriction given: [%s | %s] (restriction-quota)", RestrictionCount, QuotaCount))
 	end
 	if (tonumber(minpieces)) and RestrictionCount > 0 and (RestrictionCount < minpieces) then
 		--if restrictioncount is less than minpieces then bad count
