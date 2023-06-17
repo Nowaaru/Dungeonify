@@ -116,6 +116,7 @@ function Dungeonify:Generate(data)
 	local RestrictionCountMap, QuotaCountMap = {}, {};
 	for i, v in pairs(self.Restrictions) do
 		local _tn = (tonumber(v) or 0)
+		RestrictionCount = RestrictionCount + (tonumber(v) or 0)
 		assert(not self.Quota[i] or (self.Quota[i] and self.Quota[i] > _tn), string.format("Impossible restriction given: [%s | %s] (restriction-quota) - %s", _tn, tonumber(self.Quota[i]) or 0))
 		-- this probably works? idk i did it in github
 	end
